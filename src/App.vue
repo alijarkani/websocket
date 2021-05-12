@@ -84,6 +84,7 @@
         </v-row>
       </v-container>
       <v-snackbar v-model="connected" color="success">Connected successfully.</v-snackbar>
+      <v-snackbar v-model="disconnected" color="error">Connection lost!</v-snackbar>
     </v-main>
   </v-app>
 </template>
@@ -105,6 +106,7 @@ export default {
     protocol: 'ws',
     status: 'disconnect',
     connected: false,
+    disconnected: false,
     socket: undefined,
     protocols: [
       'ws',
@@ -112,6 +114,15 @@ export default {
     ],
     messages: [],
   }),
+
+  mounted() {
+    let config = localStorage.getItem('config')
+    if (config) {
+      let { protocol , url } = JSON.parse(config);
+      this.protocol = protocol
+      this.url = url
+    }
+  },
 
   methods: {
     connect() {
@@ -123,7 +134,16 @@ export default {
         that.connected = true
       });
 
+      this.socket.addEventListener('close', function () {
+        that.status = "disconnect"
+        that.disconnected = true
+      });
+
       this.socket.addEventListener('message', this.message);
+      localStorage.setItem('config', JSON.stringify({
+        url: this.url,
+        protocol: this.protocol,
+      }))
     },
     disconnect() {
       this.status = "disconnect"
