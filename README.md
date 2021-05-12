@@ -1,24 +1,29 @@
-# socket
+# Tiny WebSocket application
 
-## Project setup
+
+This project is a tiny application for test and work with WebSocket server.
+
+For use this project, Follow the instructions below
+
+- Open your console terminal and clone the project from repository.
 ```
+git clone https://github.com/alijarkani/websocket.git
+```
+
+
+- Install dependencies:
+```
+cd websocket
 npm install
 ```
 
-### Compiles and hot-reloads for development
+- Run application (development mode):
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+- Open this url in your browser and Enjoy it!
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+http://localhost:8080/
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
